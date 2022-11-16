@@ -72,10 +72,8 @@ int main(int argc, char **args) {
    printf("Decrypting with %s...\n", algo == DES ? "DES" : "EDES");
    CAENC_CTX_new(algo, key);
    
-   printf("%c %ld\n", buffer[0], file_length);
    ENCRYPTION_RESULT *encryption_result = decrypt(buffer, file_length);
 
-   printf("%c %ld\n", encryption_result->result[0], encryption_result->length);
    if (output_file != NULL) {
       write_file_bytes(encryption_result->result, encryption_result->length, output_file);
    }

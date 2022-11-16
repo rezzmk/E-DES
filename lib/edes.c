@@ -7,30 +7,8 @@
 #include <pthread.h>
 #include <openssl/sha.h>
 
-
 uint8_t sboxes[NUM_SBOXES][SBOX_SIZE];
 bool initialized = false;
-
-void sbox_init(uint8_t *key) {
-	initialized = true;
-	for (int i = 0; i < 16; i++) {
-		for (int j = 0; j < SBOX_SIZE; j++) {
-			sboxes[i][j] = j;
-		}
-		gen_sbox(sboxes[i], key, i);
-	}
-
-// If debug, we'll override generated sbox with test case ones (8x8 identity)
-#if DEBUG
-	for(int sbox_idx = 0; sbox_idx < NUM_SBOXES; sbox_idx++) {
-		for(int i = 0; i < SBOX_SIZE; i++) {
-			int val = i + sbox_idx + 1;
-			if (val > 255) val = val - 256;
-			sboxes[sbox_idx][i] = val;
-		}
-	}
-#endif
-}
 
 uint8_t *pad(uint8_t *input, uint64_t input_len, uint8_t block_sz, uint64_t *padded_size) {
 	uint8_t pad_value = 0;
@@ -185,6 +163,16 @@ void process_block(uint8_t block[BLOCK_SIZE_BYTES], uint8_t result_block[BLOCK_S
 		for (int i = 0; i < BLOCK_SIZE_BYTES; i++) {
 			result_block[i] = i < BLOCK_HALF_SIZE ? left[i] : right[i - BLOCK_HALF_SIZE];
 		}
+	}
+}
+
+void sbox_init(uint8_t *key) {
+	initialized = true;
+	for (int i = 0; i < 16; i++) {
+		for (int j = 0; j < SBOX_SIZE; j++) {
+			sboxes[i][j] = j;
+		}
+		gen_sbox(sboxes[i], key, i);
 	}
 }
 
