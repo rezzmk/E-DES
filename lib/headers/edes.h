@@ -1,5 +1,5 @@
-#ifndef EDES_H
-#define EDES_H
+#ifndef _EDES_H
+#define _EDES_H
 
 #include <stdint.h>
 
@@ -11,11 +11,6 @@
 #define KEY_SIZE 256
 #define KEY_SIZE_BYTES (KEY_SIZE / 8)
 #define BLOCK_HALF_SIZE (BLOCK_SIZE_BYTES / 2)
-
-/*
-boolean definition, no need for #include <bool.h> as we're only using this for very simple state handling
-*/
-typedef enum { false, true } bool;
 
 /*
 E-DES Encryption result
@@ -71,10 +66,6 @@ extern void process_block(uint8_t block[BLOCK_SIZE_BYTES], uint8_t result_block[
 Generates an S-Box, given a key and it's index
 */
 extern void gen_sbox(uint8_t sbox[], uint8_t *key, uint8_t sbox_idx);
-/*
-Gets the SHA256 hash of an input
-*/
-extern uint8_t *get_sha_256(char *input);
 /*
 Initializes the S-Box, given a key. This will call gen_sbox()
 */

@@ -5,7 +5,6 @@
 #include "edes.h"
 #include "utils.h"
 #include <pthread.h>
-#include <openssl/sha.h>
 
 uint8_t sboxes[NUM_SBOXES][SBOX_SIZE];
 bool initialized = false;
@@ -213,10 +212,4 @@ void gen_sbox(uint8_t sbox[], uint8_t *key, uint8_t sbox_idx) {
 		sbox[i] = sbox[j];
 		sbox[j] = tmp;
 	}
-}
-
-uint8_t *get_sha_256(char *input) {
-    uint8_t *key = calloc(KEY_SIZE_BYTES, sizeof(uint8_t));
-    key = SHA256(input, strlen(input), NULL);
-    return key;
 }

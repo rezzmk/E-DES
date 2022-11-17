@@ -1,4 +1,3 @@
-#include "caencryption.h"
 #include <stdint.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -8,6 +7,7 @@
 #include <openssl/evp.h>
 #include <string.h>
 #include <assert.h>
+#include "crypto.h"
 
 #define NUM_MEASUREMENTS 100000
 #define BUF_SIZE 4096

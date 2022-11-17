@@ -1,9 +1,12 @@
-#include "utils.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <stddef.h>
+#include <openssl/sha.h>
+
+#include "utils.h"
 
 void write_file_bytes(uint8_t *buffer, uint64_t sz, char *file_name) {
     FILE *file;
@@ -31,4 +34,10 @@ uint8_t *read_file_bytes(char *file_name, uint64_t *file_length) {
 
     *file_length = file_sz;
     return buffer;
+}
+
+uint8_t *get_sha_256(char *input) {
+    uint8_t *key = calloc(32, sizeof(uint8_t));
+    key = SHA256(input, strlen(input), NULL);
+    return key;
 }

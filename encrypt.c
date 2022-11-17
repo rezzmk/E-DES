@@ -3,9 +3,8 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <unistd.h>
-#include "caencryption.h"
 #include "utils.h"
-#include "edes.h"
+#include "crypto.h"
 
 #define MAX_BUF_SIZE 4096
 
