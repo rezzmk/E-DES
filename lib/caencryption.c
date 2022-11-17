@@ -65,7 +65,6 @@ ENCRYPTION_RESULT *decrypt(uint8_t *in, size_t in_sz) {
 
         result->length = edes_result->message_len;
         result->result = edes_result->message;
-        //free(edes_result);
     }
     else if (g_current_ctx_algo == DES) {
         int tmp;
